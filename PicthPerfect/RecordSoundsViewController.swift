@@ -27,17 +27,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func configureUI(_ isRecording : Bool){
-        if(isRecording){
-            recordingButton.isEnabled = false
-            recordingButton.alpha = 0.5
-            stopRecordButton.isEnabled = true
-            stopRecordButton.alpha = 1
-        }else{
-            recordingButton.isEnabled = true
-            recordingButton.alpha = 1
-            stopRecordButton.isEnabled = false
-            stopRecordButton.alpha = 0.5
-        }
+        recordingButton.isEnabled = !isRecording
+        recordingButton.alpha = isRecording ? 0.5 : 1
+        stopRecordButton.isEnabled = isRecording
+        stopRecordButton.alpha = isRecording ? 1 : 0.5
     }
     
     @IBAction func recordAudio(_ sender: Any) {
@@ -48,7 +41,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = "recordedVoice.wav"
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
-
+        
         let session = AVAudioSession.sharedInstance()
         try! session.setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
         
@@ -64,7 +57,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         recordingLabel.text = "Recording in Stoped"
         
         audioRecorder.stop()
-
+        
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
     }
