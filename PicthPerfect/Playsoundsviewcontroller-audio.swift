@@ -148,9 +148,11 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
         case .playing:
             setPlayButtonsEnabled(false)
             stopButton.isEnabled = true
+            stopButton.alpha = 1
         case .notPlaying:
             setPlayButtonsEnabled(true)
             stopButton.isEnabled = false
+            stopButton.alpha = 0.5
         }
     }
     

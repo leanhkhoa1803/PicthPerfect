@@ -31,11 +31,10 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
-        stopButton.isEnabled = false
-        stopButton.alpha = 0.5
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         configureUI(.notPlaying)
     }
     @IBAction func playSoundForButton(_ sender: UIButton) {
@@ -53,15 +52,12 @@ class PlaySoundsViewController: UIViewController {
             case .reverb:
                 playSound(reverb: true)
             }
-        stopButton.isEnabled = true
-        stopButton.alpha = 1
             configureUI(.playing)
     }
 
     @IBAction func stopButtonPressed(_ sender: AnyObject) {
         stopAudio()
-        stopButton.isEnabled = false
-        stopButton.alpha = 0.5
+        configureUI(.notPlaying)
     }
 
 }
